@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Services;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Edx_Project3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            GetStudentInfo();
+            Console.WriteLine();
+            GetProfessorInfo();
+            Console.WriteLine();
+        }
+
+        private static void GetStudentInfo()
+        {
+            Console.WriteLine("Enter the student's first name: ");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Enter the student's last name");
+            string lastName = Console.ReadLine();
+
+            //inizialize birthday
+            DateTime birthday = new DateTime(1,1,1);
+            bool istrue = false;
+            do
+            {
+                try
+                {
+                    Console.WriteLine("Enter the student's birthday (mm/dd/yyyy)");
+                    birthday = Convert.ToDateTime(Console.ReadLine());
+                    istrue = true;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please enter the correct date format");
+                }
+            } while (!istrue);
+
+            //print out the student details
+            PrintStudentDetails(firstName, lastName, birthday);
+        }
+
+        static void PrintStudentDetails(String firstName, String lastName, DateTime birthday)
+        {
+            Console.WriteLine("{0} {1} was born on {2}", firstName, lastName, birthday);
+        }
+
+        static void PrintProfessorDetails(String firstName, String lastName, String[] courses)
+        {
+            Console.WriteLine("{0} {1}taught thses courses {2}", firstName, lastName, courses);
+        }
+
+        private static void GetProfessorInfo()
+        {
+            Console.WriteLine("Enter the professor's first name: ");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Enter the professor's last name");
+            string lastName = Console.ReadLine();
+
+            //inizialize different name of courses
+            Console.WriteLine("What are the different courses you are teaching, seperate with a space");
+            string[] courses = Console.ReadLine().Split();
+
+            for (int i = 0; i < courses.Length; i++)
+            {
+                courses[i] = courses[i].Trim();
+            }
+
+            //print out the student details
+            PrintProfessorDetails(firstName, lastName, courses);
+        }
+    }
+}
