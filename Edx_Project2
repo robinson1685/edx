@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Edx_Project2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var x = 0; //create variable
+
+            while (x < 8)
+            {
+                var y = 0; //create variable
+
+                while (y < 8)
+                {
+                    if (y % 2 == 0 && x % 2 == 0)
+                        Console.Write("X"); //Print X
+                    else if (x % 2 == 0 || y % 2 == 0)
+                        Console.Write("O"); //Print O
+                    else
+                        Console.Write("X"); //Print X
+                    y++; 
+                }
+                Console.WriteLine();
+                x++;
+            }
+            Console.ReadLine();
+        }
+    }
+}
