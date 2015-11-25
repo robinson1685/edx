@@ -1,0 +1,275 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Edx_Project5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //create student objects
+            Student student1 = new Student("Joe", "Smith", 1, 5);
+            Student student2 = new Student("Heather", "Mack", 2, 4);
+            Student student3 = new Student("Random", "Man", 3, 6);
+
+            //create a course
+            Course course = new Course("Programming with C#", 4);
+
+            //add students
+            course.addStudent(student1);
+            course.addStudent(student2);
+            course.addStudent(student3);
+
+            //create teacher object
+            Teacher teacher = new Teacher("Walter", "White", 321, 100000);
+
+            //add teacher
+            course.addTeacher(teacher);
+
+            //create degree object
+            Degree degree = new Degree("Bachelor of Science", 250, course);
+
+            //add course to degree object
+            degree.Course = course;
+
+            //create a Uniprogram
+            UniProgram uProgram = new UniProgram("Information Technology", "Freshman", degree);
+
+            //add degree to uniprogram
+            uProgram.Degree = degree;
+
+            //output the information
+            Console.WriteLine("The {0} program contains the {1} degree\n", uProgram.Name, degree.Name);
+            Console.WriteLine("The {0} degree contains the course {1}\n", degree.Name, course.CourseName);
+            Console.WriteLine("The {0} course contains {1} student(s)\n", course.CourseName, course.StudentsNumber);
+            Console.ReadLine();
+        }
+    }
+
+    //Create student struct
+    struct Student
+    {
+        //Counter Variable
+        private static int studentCounter = 0;
+
+        //Student Variables
+        private string fname;
+        private string lname;
+        private int id;
+        private int numofcourses;
+
+        public Student(string fname, string lname, int id, int numofcourses)
+        {
+            this.fname = fname;
+            this.lname = lname;
+            this.id = id;
+            this.numofcourses = numofcourses;
+            
+        }
+
+        public string Fname
+        {
+            get { return fname; }
+            set { fname = value; }
+        }
+
+        public string Lname
+        {
+            get { return lname; }
+            set { lname = value; }
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public int Numofcourses
+        {
+            get { return numofcourses; }
+            set { numofcourses = value; }
+        }
+    }
+    //Create teacher struc
+    struct Teacher
+    {
+        private string fname;
+        private string lname;
+        private int id;
+        private int salary;
+
+        public Teacher(string fname, string lname, int id, int salary)
+        {
+            this.fname = fname;
+            this.lname = lname;
+            this.id = id;
+            this.salary = salary;
+        }
+
+
+        public string Fname
+        {
+            get { return fname; }
+            set { fname = value; }
+        }
+
+        public string Lname
+        {
+            get { return lname; }
+            set { lname = value; }
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public int Salary
+        {
+            get { return salary; }
+            set { salary = value; }
+        }
+    }
+
+    //Create UniProgram Struct
+    struct UniProgram
+    {
+        private string name;
+        private string edulevel;
+        private Degree degree;
+
+        public UniProgram(string name, string edulevel, Degree degree)
+        {
+            this.name = name;
+            this.edulevel = edulevel;
+            this.degree = degree;
+        }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string Edulevel
+        {
+            get { return edulevel; }
+            set { edulevel = value; }
+        }
+
+        public Degree Degree
+        {
+           get { return degree; }
+           set { degree = value; } 
+        }
+    }
+
+    //Create Course struct
+    struct Degree
+    {
+        private string name;
+        private int credits;
+        private Course course; 
+
+        public Degree(string name, int credits, Course course)
+        {
+            this.name = name;
+            this.credits = credits;
+            this.course = course;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public int Credits
+        {
+            get { return credits; }
+            set { credits = value; }
+        }
+
+        public Course Course
+        {
+            get { return course; }
+            set { course = value; }
+        }
+    }
+
+    struct Course
+    {
+        //array size
+        private static int arraysize = 3;
+
+        //course variables
+        private string courseName;
+        private int courseCredits;
+        private Student[] students;
+        private int studentsNumber;
+        private Teacher[] teachers;
+        private int teachersNumber;
+
+        //constructor
+        public Course(string cName, int credits)
+        {
+            this.courseName = cName;
+            this.courseCredits = credits;
+            this.students = new Student[arraysize];
+            this.studentsNumber = 0;
+            this.teachers = new Teacher[arraysize];
+            this.teachersNumber = 0;
+        }
+
+        //properties
+        public string CourseName {
+               get { return this.courseName; }
+               set { if (value != null) { this.courseName = value; } } 
+            }
+            public int CourseCredits {
+                get { return this.courseCredits; }
+                set { if (value != null) { this.courseCredits = value; } }
+            }
+            public int StudentsNumber
+            {
+                get { return this.studentsNumber; }
+            }
+            public int TeachersNumber
+            {
+                get { return this.teachersNumber; }
+            }
+
+        //method to add a student
+        public void addStudent(Student student)
+        {
+            int n = this.StudentsNumber;
+            if (n < arraysize)
+            {
+                this.students[n] = student;
+                this.studentsNumber++;
+            }
+            else
+            {
+                Console.WriteLine("Array of students is full.");
+            }
+        }
+
+        public void addTeacher(Teacher teacher)
+        {
+            int n = this.teachersNumber;
+            if (n < arraysize)
+            {
+                this.teachers[n] = teacher;
+                this.teachersNumber++;
+            }
+            else
+            {
+                Console.WriteLine("Array of teachers is full.");
+            }
+        }
+    }
+}
